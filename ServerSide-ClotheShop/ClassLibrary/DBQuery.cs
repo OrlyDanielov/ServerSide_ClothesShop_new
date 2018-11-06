@@ -8,6 +8,21 @@ namespace ClassLibrary
 {
     public class DBQuery
     {
+        public static bool AddNewClothe(Clothe newClothe)
+        {
+            try
+            {
+                ClothesShopDBConnection db = new ClothesShopDBConnection();
+                db.Entry(newClothe).State = System.Data.Entity.EntityState.Added; //  add the new clothe to the db
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)//(Exception e)
+            {
+                return false;
+            }
+        }
+
         public static bool UpdateProductInv_AND_addedPurchase(List<Purchase> p_purchases)
         {
             try

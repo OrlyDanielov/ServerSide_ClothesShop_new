@@ -39,9 +39,19 @@ namespace WebApplication.Controllers
             return "value";
         }
 
+        /*
         // POST api/<controller>
         public void Post([FromBody]string value)
         {
+        }
+        */
+        [Route("api/Clothe")] // הוספת בגד חדש לdb
+        public HttpResponseMessage Post([FromBody]Clothe newClothe)  //(Clothe value)
+        {  var isSaved = DBQuery.AddNewClothe(newClothe); //  the function return true if the clothe added to the db seccessfully' else return false.
+            if (isSaved == true)
+                return Request.CreateResponse(HttpStatusCode.OK, isSaved);
+            else
+                return Request.CreateResponse(HttpStatusCode.NotFound, "");
         }
 
         // PUT api/<controller>/5

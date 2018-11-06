@@ -36,6 +36,15 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        function admin_uploadClothe() {
+            let user_admin = JSON.parse(localStorage.getItem("login_user")).is_admin;
+            if (user_admin == true) {
+                document.getElementById("uploadClothe_Herf").hidden = false;
+            }
+            else {
+                document.getElementById("uploadClothe_Herf").hidden = true;
+            }
+        }
         var orders;
         function Logout() {
             localStorage.removeItem("login_user");
@@ -45,7 +54,10 @@
         var orders = new Array();
         //debugger;
         $(document).ready(function () { // when the page open in the first time
-             let user_id = JSON.parse(localStorage.getItem("login_user")).id;
+
+            admin_uploadClothe();
+
+            let user_id = JSON.parse(localStorage.getItem("login_user")).id;
             $.ajax({
                 dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
                 url: "/api/Purchase/" + user_id,                 //הכתובת לשרת ולפונקציה
@@ -86,23 +98,6 @@
                 </tr>`;
             }
 
-
-            /*
-            function TransferOrderDetail(p)
-            // create new array of objects for the purchase details for display
-            {
-                for (i = 0; i < p.length; i++)
-                    var obj = {
-                        purchase_id: p[i].purchase_id,
-                        purchase_date: p[i].purchase_date,
-                        client_id: p[i].client_id,
-                        clothe_number: p[i].clothe_number,
-                        amount: p[i].amount
-                    };
-                orders.push(obj);
-            }
-            */
-
         });
 
 
@@ -116,7 +111,8 @@
         <div class="topnav">
             <a href="WellcomePage.html">Home</a>
             <a href="WatchingClothesPage.html">Watching Clothes</a>
-            <a class="active"  href="HistoryOrderPage.html">History Order</a>
+            <a class="active" href="HistoryOrderPage.html">History Order</a>
+            <a href="UpLoadClothePage.html" id="uploadClothe_Herf">Upload Clothe</a>
             <input type="button" value="LogOut" onclick="Logout()" />
         </div>
     </div>

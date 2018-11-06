@@ -36,12 +36,24 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        function admin_uploadClothe() {
+            let user_admin = JSON.parse(localStorage.getItem("login_user")).is_admin;
+            if (user_admin == true) {
+                document.getElementById("uploadClothe_Herf").hidden = false;
+            }
+            else {
+                document.getElementById("uploadClothe_Herf").hidden = true;
+            }
+        }
         function Logout() {
             localStorage.removeItem("login_user");
             window.location.replace("LoginPage.html")
         }
         var clothes = new Array();
         $(document).ready(function () { // when the page open in the first time
+
+            admin_uploadClothe();
+
             $.ajax({
                 // get the information of all the clothes
                 dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
@@ -98,6 +110,7 @@
             <a href="WellcomePage.html">Home</a>
             <a class="active" href="WatchingClothesPage.html">Watching Clothes</a>
             <a href="HistoryOrderPage.html">History Order</a>
+            <a href="UpLoadClothePage.html" id="uploadClothe_Herf">Upload Clothe</a>
             <input type="button" value="LogOut" onclick="Logout()" />
         </div>
     </div>

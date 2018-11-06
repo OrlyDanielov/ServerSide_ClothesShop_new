@@ -36,13 +36,25 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        function admin_uploadClothe() {
+            let user_admin = JSON.parse(localStorage.getItem("login_user")).is_admin;
+            if (user_admin == true) {
+                document.getElementById("uploadClothe_Herf").hidden = false;
+            }
+            else {
+                document.getElementById("uploadClothe_Herf").hidden = true;
+            }
+        }
         function Logout() {
             localStorage.removeItem("login_user");
             window.location.replace("LoginPage.html")
         }
         let user_name = JSON.parse(localStorage.getItem("login_user")).name;
         $(document).ready(function () { // when the page open in the first time
-            document.getElementById("helloToUser").innerHTML = "Hello " + user_name+".\n Wellcome to the Orly&Viki clothe shop.";
+
+            admin_uploadClothe();
+
+            document.getElementById("helloToUser").innerHTML = "Hello " + user_name + ".\n Wellcome to the Orly&Viki clothe shop.";
         });
 </script>
 </head>
@@ -56,6 +68,7 @@
             <a class="active" href="WellcomePage.html">Home</a>
             <a href="WatchingClothesPage.html">Watching Clothes</a>
             <a href="HistoryOrderPage.html">History Order</a>
+            <a href="UpLoadClothePage.html" id="uploadClothe_Herf">Upload Clothe</a>
             <input type="button" value="LogOut" onclick="Logout()" />
         </div>
     </div>
