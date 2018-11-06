@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        var _id;
+        var _password;
+
+        function logIn() {
+            _id = parseInt($("#client_id").val());
+            _password = $("#client_password").val();
+
+             $.ajax({
+
+                dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
+                url: "/api/Client/" + _id,			                 //הכתובת לשרת ולפונקציה
+                contentType: "application/json; charset=utf-8",	   //סוג הנתונים שאנחנו שולחים לשרת
+                type: "GET",				                         //סוג הפעולה
+                data: JSON.stringify(_password),			                 //הנתונים עצמם שאנחנו שולחים
+                success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
+                    if (CheckUser(data) == true) {
+                        let user = {
+                            id: data.id,
+                            name: data.name,
+                            password: data.password,
+                            is_admin: data.is_admin
+                        };
+                        localStorage.setItem("login_user", JSON.stringify(user));
+                        window.location.replace("WatchingClothesPage.html");
+                    }
+                    else {
+                        alert('the id or the password is incorrnt!.');
+                    }
+                },
+                error: function (data) {
+                    alert('the id or the password is incorrnt!.');
+                }
+            });
+
+        }
+
+        function CheckUser(user) {
+            if (user != null) {
+                if (user.password == _password)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+    </script>
+</head>
+<body>
+    <div id="div_up" style="height:50px; background-color:white">
+        <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
+    </div>
+    <div id="div_mid" style="height:525px;background-color:white; text-align:center;">
+        <div id="d_login" style="text-align:center; position:center; margin:30px;">
+            <br />
+            <br />
+            <label for="client_id">id </label>
+            <input type="text" for="client_id" id="client_id" placeholder="enter your id" />
+            <br />
+            <br />
+            <label for="client_password">password</label>
+            <input type="password" for="client_password" id="client_password" placeholder="enter your id" />
+            <br />
+            <br />
+            <input type="button" id="loginBtn" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" value="login" onclick="logIn()" />
+        </div>
+    </div>
+    <div id="div_down" style="height:50px; background-color:red">
+    </div>
+</body>
+</html>
