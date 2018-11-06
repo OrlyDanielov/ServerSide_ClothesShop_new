@@ -36,57 +36,76 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        var orders;
         function Logout() {
             localStorage.removeItem("login_user");
             window.location.replace("LoginPage.html")
         }
-        var clothes = new Array();
+
+        var orders = new Array();
+        //debugger;
         $(document).ready(function () { // when the page open in the first time
+             let user_id = JSON.parse(localStorage.getItem("login_user")).id;
             $.ajax({
-                // get the information of all the clothes
                 dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
-                url: "/api/Clothe",			                 //הכתובת לשרת ולפונקציה
+                url: "/api/Purchase/" + user_id,                 //הכתובת לשרת ולפונקציה
+                //url: "/api/Purchase",                 //הכתובת לשרת ולפונקציה
                 contentType: "application/json; charset=utf-8",	   //סוג הנתונים שאנחנו שולחים לשרת
                 type: "GET",				                         //סוג הפעולה
-                //data: JSON.stringify({}),			                 //הנתונים עצמם שאנחנו שולחים
+                //  data: JSON.stringify({}),			                 //הנתונים עצמם שאנחנו שולחים
                 success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
-                    clothes = data;
-                    localStorage.setItem("clothes", JSON.stringify(clothes));
-                    init(clothes); // initiate the table of products.
+                    orders = data;
+                    //TransferOrderDetail(data);
+                    init(orders); // initiate the table of products.
                 },
                 error: function (data) {
                     alert('error, no products in the shop!.');
-                    console.log(data)
                 }
             });
-            function init(cl) { // initiate the table
-                var str;
-                for (i in cl) {
-                    $("#table_clothes").append(AddTR(cl[i]));
+            function init(x) // initiate the table
+            {
+                for (i in x) {
+                    $("#tableHistoryOrders").append(AddTR(x[i]));
                 }
             }
-            function AddTR(cl) {
+            function AddTR(order) {
                 // add new row whith the mutch details to the table
-                return `<tr id='${cl.number}'  value="${cl.number}">
-                    <td>
-                         <img id="c_img" src="${cl.img_url}" style=";top:10px;background-color:white; margin:10px;height:200px;width:180px;"/>
-                    </td>
-                    <td>
-                        <span class="c_category">${cl.category}</span>
-                    </td>
-                    <td>
-                        <span class="c_details">${cl.details}</span>
-                    </td>
-                    <td>
-                        <span  class="c_price">${cl.price}</span>
-                    </td>
-                    <td>
-                        <input type="number" value="0" min="0" max="${cl.amount}"/>
-                    </td>
-                </tr>`
+                return `<tr id='${order.purchase_id}'  value="${order.purchase_id}">
+                        <td>
+                        <span  class="p_date">${order.purchase_date}</span>
+                        </td>
+                        <td>
+                        <span  class=p_id">${order.purchase_id}</span>
+                        </td>
+                        <td>
+                        <span  class=p_clotheNumber">${order.clothe_number}</span>
+                        </td>
+                        <td>
+                        <span  class=p_amount">${order.amount}</span>
+                        </td>
+                </tr>`;
             }
+
+
+            /*
+            function TransferOrderDetail(p)
+            // create new array of objects for the purchase details for display
+            {
+                for (i = 0; i < p.length; i++)
+                    var obj = {
+                        purchase_id: p[i].purchase_id,
+                        purchase_date: p[i].purchase_date,
+                        client_id: p[i].client_id,
+                        clothe_number: p[i].clothe_number,
+                        amount: p[i].amount
+                    };
+                orders.push(obj);
+            }
+            */
+
         });
-       
+
+
     </script>
 </head>
 <body>
@@ -96,27 +115,27 @@
         </div>
         <div class="topnav">
             <a href="WellcomePage.html">Home</a>
-            <a class="active" href="WatchingClothesPage.html">Watching Clothes</a>
-            <a href="HistoryOrderPage.html">History Order</a>
+            <a href="WatchingClothesPage.html">Watching Clothes</a>
+            <a class="active"  href="HistoryOrderPage.html">History Order</a>
             <input type="button" value="LogOut" onclick="Logout()" />
         </div>
     </div>
     <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
+        <br />
+        <p>the order has been successfully placed. you invent:!.</p>
+        <br />
         <center>
-            <div style="overflow-y:scroll;height:330px;">
-                <table id="table_clothes" align="center" style="vertical-align:middle;background-color:darkgray; margin:10px;">
+            <div style="overflow-y:scroll; height:400px;">
+                <table id="tableHistoryOrders" align="center" style="vertical-align:middle;background-color:darkgray; margin:10px;">
                     <tr>
                         <th>
-                            <span>תמונה</span>
+                            <span>תאריך הזמנה</span>
                         </th>
                         <th>
-                            <span>קטגוריה</span>
+                            <span>מספר הזמנה</span>
                         </th>
                         <th>
-                            <span>תיאור</span>
-                        </th>
-                        <th>
-                            <span>מחיר</span>
+                            <span>מספר בגד</span>
                         </th>
                         <th>
                             <span>כמות</span>
@@ -125,11 +144,6 @@
                 </table>
             </div>
         </center>
-        <br />
-        <br />
-        <input type="button" id="btn_buy" value="buy" onclick="BuyBasket()" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" />
-        <br />
-        <br />
     </div>
     <div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
 

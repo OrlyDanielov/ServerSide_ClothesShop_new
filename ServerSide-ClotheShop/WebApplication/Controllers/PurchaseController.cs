@@ -17,13 +17,30 @@ namespace WebApplication.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        /*
         // GET api/<controller>/5
         public string Get(int id)
         {
             return "value";
         }
+        */
+        // GET api/<controller>/5
+        [Route("api/Purchase/{_id}")]
+        public dynamic Get(int _id)
+        {
+            ClothesShopDBConnection db = new ClothesShopDBConnection();
+            List<PurchaseDTO> orders = db.Purchases.Where(x => x.client_id == _id).Select(x => new PurchaseDTO()
+            {
+                client_id = x.client_id,
+                clothe_number = x.clothe_number,
+                purchase_date = x.purchase_date,
+                amount = x.amount,
+                purchase_id = x.purchase_id
+            }).ToList();
+            return orders;
+        }
 
-       
+
         /*
         // POST api/<controller>
         public void Post([FromBody]string value)
