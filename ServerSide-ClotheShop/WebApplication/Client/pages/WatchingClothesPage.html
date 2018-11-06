@@ -36,6 +36,10 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+        function Logout() {
+            localStorage.removeItem("login_user");
+            window.location.replace("LoginPage.html")
+        }
         var clothes = new Array();
         $(document).ready(function () { // when the page open in the first time
             $.ajax({
@@ -87,16 +91,16 @@
 </head>
 <body>
     <div id="div_up" style="height:50px; background-color:white">
-        <div >
+        <div>
             <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
         </div>
         <div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-</div>
+            <a href="WellcomePage.html">Home</a>
+            <a class="active" href="WatchingClothesPage.html">Watching Clothes</a>
+            <a href="#contact">Contact</a>
+            <input type="button" value="LogOut" onclick="Logout()" />
         </div>
+    </div>
     <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
         <center>
             <div style="overflow-y:scroll;height:330px;">

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+                .topnav a.active {
+                    background-color: red;
+                    color: white;
+                }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        function Logout() {
+            localStorage.removeItem("login_user");
+            window.location.replace("LoginPage.html")
+        }
+        let user_name = JSON.parse(localStorage.getItem("login_user")).name;
+        $(document).ready(function () { // when the page open in the first time
+            document.getElementById("helloToUser").innerHTML = "Hello " + user_name+".\n Wellcome to the Orly&Viki clothe shop.";
+        });
+</script>
+</head>
+<body>
+    <div id="div_up" style="height:50px; background-color:white">
+        <div>
+            <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
+        </div>
+        
+        <div class="topnav">
+            <a class="active" href="WellcomePage.html">Home</a>
+            <a href="WatchingClothesPage.html">Watching Clothes</a>
+            <a href="#contact">History Order</a>
+            <input type="button" value="LogOut" onclick="Logout()" />
+        </div>
+    </div>
+    <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
+        <center >
+            <p id="helloToUser"></p>
+            </center>
+        </div>
+    <div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
+    </div>
+</body>
+</html>

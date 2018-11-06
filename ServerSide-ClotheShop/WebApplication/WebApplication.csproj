@@ -298,6 +298,7 @@
     <Content Include="Client\images\logos\o&amp;v.png" />
     <Content Include="Client\pages\LoginPage.html" />
     <Content Include="Client\pages\WatchingClothesPage.html" />
+    <Content Include="Client\pages\WellcomePage.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
