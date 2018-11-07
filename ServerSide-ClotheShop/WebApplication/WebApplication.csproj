@@ -297,6 +297,9 @@
     <Content Include="Client\images\logos\castro_logo.png" />
     <Content Include="Client\images\logos\o&amp;v logo.png" />
     <Content Include="Client\images\logos\o&amp;v.png" />
+    <Content Include="Client\images\logos\מבצע קניות לוגו.png" />
+    <Content Include="Client\images\logos\מבצע קניות תמונה.png" />
+    <Content Include="Client\images\logos\מבצע קניות.jpg" />
     <Content Include="Client\pages\HistoryOrderPage.html" />
     <Content Include="Client\pages\LoginPage.html" />
     <Content Include="Client\pages\UpLoadClothePage.html" />

@@ -53,8 +53,8 @@
         $(document).ready(function () { // when the page open in the first time
 
             admin_uploadClothe();
-
-            document.getElementById("helloToUser").innerHTML = "Hello " + user_name + ".\n Wellcome to the Orly&Viki clothe shop.";
+                
+            document.getElementById("helloToUser").innerHTML = "Hello " + user_name + ".<br> Wellcome to the Orly&Viki clothe shop. The new fall collection is already in store";
         });
 </script>
 </head>
@@ -63,21 +63,23 @@
         <div>
             <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
         </div>
-        
         <div class="topnav">
             <a class="active" href="WellcomePage.html">Home</a>
             <a href="WatchingClothesPage.html">Watching Clothes</a>
             <a href="HistoryOrderPage.html">History Order</a>
-            <a href="UpLoadClothePage.html" id="uploadClothe_Herf">Upload Clothe</a>
+            <a href="HistoryOrderPage.html" id="uploadClothe_Herf">History Order</a>
             <input type="button" value="LogOut" onclick="Logout()" />
         </div>
     </div>
-    <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
-        <center >
+    <div id="div_mid" style="position:relative;top:80px;height:425px;background-color:white; text-align:center;" align="center">
+        <center>
             <p id="helloToUser"></p>
-            </center>
-        </div>
-    <div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
+            <p>
+                <img src="../images/logos/מבצע קניות תמונה.png" style="height:400px; width:450px;" />
+            </p>
+        </center>
+    </div>
+    <div id="div_down" style="height:50px; background-color:red;position:relative; top:100px;">
     </div>
 </body>
 </html>

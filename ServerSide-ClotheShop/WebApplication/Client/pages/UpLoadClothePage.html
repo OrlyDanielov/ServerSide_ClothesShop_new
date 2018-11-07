@@ -101,85 +101,86 @@
             });
         }
 
+        function view() {
+            let file = $("#itemImage")[0].files[0];
+            let rdr = new FileReader();
+            rdr.readAsDataURL(file);
+
+            rdr.onload = function () {
+                $("#download").attr("src", rdr.result);
+            }
+        }
 
 
     </script>
 </head >
-                <body>
-                    <div id="div_up" style="height:50px; background-color:white">
-                        <div>
-                            <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
-                        </div>
-
-                        <div class="topnav">
-                            <a href="WellcomePage.html">Home</a>
-                            <a href="WatchingClothesPage.html">Watching Clothes</a>
-                            <a href="HistoryOrderPage.html">History Order</a>
-                            <a class="active" href="HistoryOrderPage.html" id="uploadClothe_Herf">History Order</a>
-                            <input type="button" value="LogOut" onclick="Logout()" />
-                        </div>
+<body>
+    <div id="div_up" style="height:50px; background-color:white">
+        <div>
+            <img id="logo" src="\Client\images\logos\o&v logo.png" style="top:10px;background-color:white; margin:10px ;text-align:center; display:block; margin-left:auto; margin-right:auto" />
+        </div>
+        <div class="topnav">
+            <a href="WellcomePage.html">Home</a>
+            <a href="WatchingClothesPage.html">Watching Clothes</a>
+            <a href="HistoryOrderPage.html">History Order</a>
+            <a class="active" href="HistoryOrderPage.html" id="uploadClothe_Herf">History Order</a>
+            <input type="button" value="LogOut" onclick="Logout()" />
+        </div>
+    </div>
+    <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
+        <div class="container" ; style="height:450px; background-color:white; padding: 16px;">
+            <!--color:white;   font-weight:300"-->
+            <center>
+                <form style="margin:10px auto">
+                    <p>
+                        <label for="itemImage"><b>Upload image:     </b></label>
+                        <input type="file" id="itemImage" name="itemImage" accept="image/*" onchange="view()" required style=" margin-bottom:10px; text-align:center">
+                        <img id="new_img" />
+                    </p>
+                    <p>
+                        <label for="desc"><b>Product description: </b></label>
+                        <input type="text" id="itemDesc" placeholder="Describe item" name="desc" required style=" margin-bottom:10px; text-align:center">
+                    </p>                   
+                    <p>
+                        <label for="barcode"><b>Barcode:   </b></label>
+                        <input type="number" id="barcode" step="1" placeholder="Enter barcode" name="barcode" required style="text-align:center">
+                    </p>
+                    <p>
+                        <label for="priceForBuyer"><b>Price for buyer: </b></label>
+                        <input type="number" id="pBuyer" step="0.01" placeholder="Enter Price" name="priceForBuyer" required style="text-align:center">
+                    </p>
+                    <p>
+                        <label for="priceForSupplier"><b>Price for supplier: </b></label>
+                        <input type="number" id="pSupp" step="0.01" placeholder="Enter Price" name="priceForSupplier" required style="text-align:center">
+                    </p>
+                    <p>
+                        <label for="stock"><b>Number of items in stock: </b></label>
+                        <input type="number" id="stock" step="1" placeholder="Enter stock " name="stock" required style="text-align:center">
+                    </p>
+                   <div>
+                        <label for="active"><b>Active item?  </b></label>
+                        <input type="radio" id="y" value="Yes" name="active" required style="color:white; text-align:center;" checked>Yes
+                        <input type="radio" id="n" value="No" name="active" required style="text-align:center">No
                     </div>
-                    <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
-                            <div class="container" ; style="height:600px; background-color:white; padding: 16px;  font-weight:300">
-                                <!--color:white;-->
-                                <center>
-                                    <form style="margin:50px auto">
-                                        <p>
-                                            <label for="itemImage"><b>Upload image:     </b></label>
-                                            <input type="file" id="itemImage" name="itemImage" accept="image/*" required style=" margin-bottom:10px; text-align:center">
-                                        </p>
-                                        <p>
-                                            <label for="desc"><b>Product description: </b></label>
-                                            <input type="text" id="itemDesc" placeholder="Describe item" name="desc" required style=" margin-bottom:10px; text-align:center">
-                                        </p>
-                                        <br />
-                                        <p>
-                                            <label for="barcode"><b>Barcode:   </b></label>
-                                            <input type="number" id="barcode" step="1" placeholder="Enter barcode" name="barcode" required style="text-align:center">
-                                        </p>
-                                        <br />
-                                        <p>
-                                            <label for="priceForBuyer"><b>Price for buyer: </b></label>
-                                            <input type="number" id="pBuyer" step="0.01" placeholder="Enter Price" name="priceForBuyer" required style="text-align:center">
-                                        </p>
-                                        <br />
-                                        <p>
-                                            <label for="priceForSupplier"><b>Price for supplier: </b></label>
-                                            <input type="number" id="pSupp" step="0.01" placeholder="Enter Price" name="priceForSupplier" required style="text-align:center">
-                                        </p>
-                                        <br />
-                                        <p>
-                                            <label for="stock"><b>Number of items in stock: </b></label>
-                                            <input type="number" id="stock" step="1" placeholder="Enter stock " name="stock" required style="text-align:center">
-                                        </p>
-                                        <br />
-                                        <div>
-                                            <label for="active"><b>Active item?  </b></label>
-                                            <input type="radio" id="y" value="Yes" name="active" required style="color:white; text-align:center;" checked>Yes
-                                            <input type="radio" id="n" value="No" name="active" required style="text-align:center">No
-                                        </div>
-                                        <br />
-
-                                        <p>
-                                            <label for="Catrgory"><b>Choose catagory:  </b></label>
-                                            <select id="categoryOption" name="categories" style="text-align:center">
-                                                <option>Choose Category </option>
-                                                <option>Short shirts  </option>
-                                                <option>Long shirts</option>
-                                                <option>Dresses </option>
-                                                <option>Jackets </option>
-                                                <option>Skirts</option>
-                                            </select>
-                                        </p>
-
-                                        <br />
-                                        <input type="button" value="ADD" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" value="ADD" onclick="uploadItem()" />
-                                        <!--<button type="submit"  style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" onclick="uploadItem()"></button>-->
-                                    </form>
-                                </center>
-                            </div>
-                    </div>
-                    <!--<div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
-                    </div>-->
-                </body>
+                    <p>
+                        <label for="Catrgory"><b>Choose catagory:  </b></label>
+                        <select id="categoryOption" name="categories" style="text-align:center">
+                            <option>Choose Category </option>
+                            <option>Short shirts  </option>
+                            <option>Long shirts</option>
+                            <option>Dresses </option>
+                            <option>Jackets </option>
+                            <option>Skirts</option>
+                        </select>
+                    </p>
+                    <br />
+                    <input type="button" value="ADD" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" value="ADD" onclick="uploadItem()" />
+                    <!--<button type="submit"  style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" onclick="uploadItem()"></button>-->
+                </form>
+            </center>
+        </div>
+    </div>
+    <div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
+    </div>
+</body>
 </html >

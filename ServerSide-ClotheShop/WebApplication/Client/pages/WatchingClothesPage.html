@@ -36,24 +36,12 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        function admin_uploadClothe() {
-            let user_admin = JSON.parse(localStorage.getItem("login_user")).is_admin;
-            if (user_admin == true) {
-                document.getElementById("uploadClothe_Herf").hidden = false;
-            }
-            else {
-                document.getElementById("uploadClothe_Herf").hidden = true;
-            }
-        }
-        function Logout() {
-            localStorage.removeItem("login_user");
-            window.location.replace("LoginPage.html")
-        }
-        var clothes = new Array();
+
+        var clothes = JSON.parse(localStorage.getItem("clothes"));// = new Array();
         $(document).ready(function () { // when the page open in the first time
 
             admin_uploadClothe();
-
+            
             $.ajax({
                 // get the information of all the clothes
                 dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
@@ -71,34 +59,108 @@
                     console.log(data)
                 }
             });
-            function init(cl) { // initiate the table
-                var str;
-                for (i in cl) {
-                    $("#table_clothes").append(AddTR(cl[i]));
+
+            init(clothes);
+
+            
+        });
+
+        function admin_uploadClothe() {
+            let user_admin = JSON.parse(localStorage.getItem("login_user")).is_admin;
+            if (user_admin == true) {
+                document.getElementById("uploadClothe_Herf").hidden = false;
+            }
+            else {
+                document.getElementById("uploadClothe_Herf").hidden = true;
+            }
+        }
+        function Logout() {
+            localStorage.removeItem("login_user");
+            window.location.replace("LoginPage.html")
+        }
+
+        function init(cl) { // initiate the table
+            var str;
+            for (i in cl) {
+                $("#table_clothes").append(AddTR(cl[i]));
+            }
+        }
+        function AddTR(cl) {
+            // add new row whith the mutch details to the table
+            return `<tr id='${cl.number}'  value="${cl.number}">
+                        <td>
+                             <img id="c_img" src="${cl.img_url}" style=";top:10px;background-color:white; margin:10px;height:200px;width:180px;"/>
+                        </td>
+                        <td>
+                            <span class="c_number">${cl.number}</span>
+                        </td>
+                        <td>
+                            <span class="c_category">${cl.category}</span>
+                        </td>
+                        <td>
+                            <span class="c_details">${cl.details}</span>
+                        </td>
+                        <td>
+                            <span  class="c_price">${cl.price}</span>
+                        </td>
+                        <td>
+                            <input class="c_amount" type="number" value="0" min="0" max="${cl.amount}"/>
+                        </td>
+                    </tr>`
+        }
+
+        function BuyBasket() {
+            // colect details of the purchase
+            let $c_amount = $('.c_amount'); //$('input[type=number]');
+            let $c_number = $('.c_number'); // $('#cl.number');
+            let user_id = parseInt((JSON.parse(localStorage.getItem("login_user"))).id);
+            var purchaseListforDB = new Array();
+            let nowDate = Date.now();
+            //var purchaseListforLC = new Array();// JSON.parse(localStorage.getItem("orderList"));
+            let isEmpty = true;
+            for (i = 0; i < $c_amount.length; i++) {
+                if ($c_amount[i].value > 0) {
+                    isEmpty = false;
+                    var newOrder = {
+                        student_id: user_id,
+                        number: $c_number[i].innerHTML,
+                        purchase_date: nowDate,
+                        amount: $c_amount[i].value
+                    };
+                    purchaseListforDB.push(newOrder);
                 }
             }
-            function AddTR(cl) {
-                // add new row whith the mutch details to the table
-                return `<tr id='${cl.number}'  value="${cl.number}">
-                    <td>
-                         <img id="c_img" src="${cl.img_url}" style=";top:10px;background-color:white; margin:10px;height:200px;width:180px;"/>
-                    </td>
-                    <td>
-                        <span class="c_category">${cl.category}</span>
-                    </td>
-                    <td>
-                        <span class="c_details">${cl.details}</span>
-                    </td>
-                    <td>
-                        <span  class="c_price">${cl.price}</span>
-                    </td>
-                    <td>
-                        <input type="number" value="0" min="0" max="${cl.amount}"/>
-                    </td>
-                </tr>`
+            if (isEmpty == true)
+                alert('you must buy at least one product!.');
+            else {
+                $.ajax({
+                    // add to the db the new orders
+                    dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
+                    url: "/api/Purchase",			                 //הכתובת לשרת ולפונקציה
+                    contentType: "application/json; charset=utf-8",	   //סוג הנתונים שאנחנו שולחים לשרת
+                    type: "POST",				                         //סוג הפעולה		
+                    data: JSON.stringify(purchaseListforDB),			                 //הנתונים עצמם שאנחנו שולחים
+                    success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
+                        // add to the local storage the new orders
+                        /*
+                        let arrLC = JSON.parse(localStorage.getItem("orderList"));
+                        for (i = 0; i < purchaseListforLC.length; i++){
+                            arrLC.push(purchaseListforLC.pop());
+                        }
+                       // arrLC.push(purchaseListforLC);
+                        localStorage.setItem("orderList", JSON.stringify(arrLC));
+                        */
+                        alert("Your order has been successful");
+                        window.location.href = "OrderHistory.html.html";
+                    },
+                    error: function (data) {
+                        // if cant add the new orders to the db
+                        // localStorage.removeItem("purchaseListforLC");
+                        alert('error, cant execute the order rigth now.');
+                    }
+                });
             }
-        });
-       
+        }
     </script>
 </head>
 <body>
@@ -121,6 +183,9 @@
                     <tr>
                         <th>
                             <span>תמונה</span>
+                        </th>
+                        <th>
+                            <span>מק"ט</span>
                         </th>
                         <th>
                             <span>קטגוריה</span>

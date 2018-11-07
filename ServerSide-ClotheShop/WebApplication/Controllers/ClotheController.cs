@@ -30,9 +30,7 @@ namespace WebApplication.Controllers
                 category = x.category,
                 img_url = x.img_url
             }).ToList();
-
         }
-
         // GET api/<controller>/5
         public string Get(int id)
         {
