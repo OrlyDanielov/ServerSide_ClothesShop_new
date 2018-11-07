@@ -37,7 +37,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
 
-        var clothes = JSON.parse(localStorage.getItem("clothes"));// = new Array();
+        var clothes = new Array(); //= JSON.parse(localStorage.getItem("clothes"));// 
         $(document).ready(function () { // when the page open in the first time
 
             admin_uploadClothe();
@@ -50,13 +50,14 @@
                 type: "GET",				                         //סוג הפעולה
                 //data: JSON.stringify({}),			                 //הנתונים עצמם שאנחנו שולחים
                 success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
+                    //alert('seccess');
                     clothes = data;
                     localStorage.setItem("clothes", JSON.stringify(clothes));
                     init(clothes); // initiate the table of products.
                 },
                 error: function (data) {
                     alert('error, no products in the shop!.');
-                    console.log(data)
+                    //console.log(data)
                 }
             });
 
@@ -101,7 +102,7 @@
                             <span class="c_details">${cl.details}</span>
                         </td>
                         <td>
-                            <span  class="c_price">${cl.price}</span>
+                            <span  class="c_price">${cl.cosumer_price}</span>
                         </td>
                         <td>
                             <input class="c_amount" type="number" value="0" min="0" max="${cl.amount}"/>
@@ -122,8 +123,8 @@
                 if ($c_amount[i].value > 0) {
                     isEmpty = false;
                     var newOrder = {
-                        student_id: user_id,
-                        number: $c_number[i].innerHTML,
+                        client_id: user_id,
+                        clothe_number: $c_number[i].innerHTML,
                         purchase_date: nowDate,
                         amount: $c_amount[i].value
                     };

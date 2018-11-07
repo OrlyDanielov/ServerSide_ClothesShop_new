@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Web;
 
 namespace ClassLibrary
 {
@@ -42,14 +44,20 @@ namespace ClassLibrary
                         return false;
                     }
                     //added the new purcheses to the db
-                    db.Entry(p).State = System.Data.Entity.EntityState.Added;
+                    //db.Entry(p).State = System.Data.Entity.EntityState.Added;
+                    db.Purchases.Add(p);
                 }
                 //Save Transaction
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception E)
             {
+                Debug.WriteLine("");
+                Debug.WriteLine(E.InnerException);
+                Debug.WriteLine("555555555");
+                Debug.WriteLine(E.ToString());
+                
                 return false;
             }
         }

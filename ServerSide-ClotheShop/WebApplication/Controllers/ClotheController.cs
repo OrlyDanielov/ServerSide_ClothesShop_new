@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ClassLibrary;
 using WebApplication.DTO;
+using System.Web;
 
 namespace WebApplication.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebApplication.Controllers
             return new string[] { "value1", "value2" };
         }
         */
+        [Route("api/Clothe")] // הוספת בגד חדש לdb
         public dynamic Get() // משיכת כל הבגדים הפעילים 
         {
             ClothesShopDBConnection db = new ClothesShopDBConnection();
@@ -25,8 +27,8 @@ namespace WebApplication.Controllers
             {
                 number = x.number,
                 details = x.details,
-                price = x.cosumer_price,
-                amount = x.amount_in_stock,
+                cosumer_price = x.cosumer_price,
+                amount_in_stock = x.amount_in_stock,
                 category = x.category,
                 img_url = x.img_url
             }).ToList();
