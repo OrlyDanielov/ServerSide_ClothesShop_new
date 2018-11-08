@@ -4,36 +4,7 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-
-                .topnav a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
-
-                .topnav a.active {
-                    background-color: red;
-                    color: white;
-                }
-    </style>
+    <link rel="stylesheet" href="Styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         function admin_uploadClothe() {
@@ -49,9 +20,11 @@
             localStorage.removeItem("login_user");
             window.location.replace("LoginPage.html")
         }
-    $(document).ready(function () { // when the page open in the first time
+        $(document).ready(function () { // when the page open in the first time
 
-        admin_uploadClothe();
+            admin_uploadClothe();
+
+            $('#new_img').hidden = true;
         });
 
         function uploadItem() {
@@ -62,9 +35,9 @@
             var barcode = document.getElementById("barcode").value; // מספר מוצר
             var pSupp = document.getElementById("pSupp").value; // מחיר עלות
             var stock = document.getElementById("stock").value; //כמות במלאי
-            var active; //  האם המוצר פעיל 
+            var active; //  האם המוצר פעיל
             if (document.getElementById('y').checked) {
-                active = 1;// true  //document.getElementById('y').value; 
+                active = 1;// true  //document.getElementById('y').value;
             }
             else active = 0;// false //= document.getElementById('n').value;
             var categoryOption = document.getElementById("categoryOption").value;// קטגוריה
@@ -107,13 +80,13 @@
             rdr.readAsDataURL(file);
 
             rdr.onload = function () {
-                $("#download").attr("src", rdr.result);
+                $("#new_img").attr("src", rdr.result);
             }
         }
 
 
     </script>
-</head >
+</head>
 <body>
     <div id="div_up" style="height:50px; background-color:white">
         <div>
@@ -129,54 +102,58 @@
     </div>
     <div id="div_mid" style="position:relative;top:100px;height:450px;background-color:white; text-align:center;" align="center">
         <div class="container" ; style="height:450px; background-color:white; padding: 16px;">
-            <!--color:white;   font-weight:300"-->
             <center>
-                <form style="margin:10px auto">
-                    <p>
-                        <label for="itemImage"><b>Upload image:     </b></label>
-                        <input type="file" id="itemImage" name="itemImage" accept="image/*" onchange="view()" required style=" margin-bottom:10px; text-align:center">
-                        <img id="new_img" />
-                    </p>
-                    <p>
-                        <label for="desc"><b>Product description: </b></label>
-                        <input type="text" id="itemDesc" placeholder="Describe item" name="desc" required style=" margin-bottom:10px; text-align:center">
-                    </p>                   
-                    <p>
-                        <label for="barcode"><b>Barcode:   </b></label>
-                        <input type="number" id="barcode" step="1" placeholder="Enter barcode" name="barcode" required style="text-align:center">
-                    </p>
-                    <p>
-                        <label for="priceForBuyer"><b>Price for buyer: </b></label>
-                        <input type="number" id="pBuyer" step="0.01" placeholder="Enter Price" name="priceForBuyer" required style="text-align:center">
-                    </p>
-                    <p>
-                        <label for="priceForSupplier"><b>Price for supplier: </b></label>
-                        <input type="number" id="pSupp" step="0.01" placeholder="Enter Price" name="priceForSupplier" required style="text-align:center">
-                    </p>
-                    <p>
-                        <label for="stock"><b>Number of items in stock: </b></label>
-                        <input type="number" id="stock" step="1" placeholder="Enter stock " name="stock" required style="text-align:center">
-                    </p>
-                   <div>
-                        <label for="active"><b>Active item?  </b></label>
-                        <input type="radio" id="y" value="Yes" name="active" required style="color:white; text-align:center;" checked>Yes
-                        <input type="radio" id="n" value="No" name="active" required style="text-align:center">No
-                    </div>
-                    <p>
-                        <label for="Catrgory"><b>Choose catagory:  </b></label>
-                        <select id="categoryOption" name="categories" style="text-align:center">
-                            <option>Choose Category </option>
-                            <option>Short shirts  </option>
-                            <option>Long shirts</option>
-                            <option>Dresses </option>
-                            <option>Jackets </option>
-                            <option>Skirts</option>
-                        </select>
-                    </p>
-                    <br />
-                    <input type="button" value="ADD" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" value="ADD" onclick="uploadItem()" />
-                    <!--<button type="submit"  style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" onclick="uploadItem()"></button>-->
-                </form>
+                <div id="div_rigth" style="float:right; width:60%; left:200px;">
+                    <form style="margin:10px auto; height:450px; text-align:left; ">
+                        <p>
+                            <label for="itemImage"><b>Upload image:     </b></label>
+                            <input type="file" id="itemImage" name="itemImage" accept="image/*" onchange="view()" required style=" margin-bottom:10px; text-align:center">
+                        </p>
+                        <p>
+                            <label for="desc"><b>Product description: </b></label>
+                            <input type="text" id="itemDesc" placeholder="Describe item" name="desc" required style=" margin-bottom:10px; text-align:center">
+                        </p>
+                        <p>
+                            <label for="barcode"><b>Barcode:   </b></label>
+                            <input type="number" id="barcode" step="1" placeholder="Enter barcode" name="barcode" required style="text-align:center">
+                        </p>
+                        <p>
+                            <label for="priceForBuyer"><b>Price for buyer: </b></label>
+                            <input type="number" id="pBuyer" step="0.01" placeholder="Enter Price" name="priceForBuyer" required style="text-align:center">
+                        </p>
+                        <p>
+                            <label for="priceForSupplier"><b>Price for supplier: </b></label>
+                            <input type="number" id="pSupp" step="0.01" placeholder="Enter Price" name="priceForSupplier" required style="text-align:center">
+                        </p>
+                        <p>
+                            <label for="stock"><b>Number of items in stock: </b></label>
+                            <input type="number" id="stock" step="1" placeholder="Enter stock " name="stock" required style="text-align:center">
+                        </p>
+                        <div>
+                            <label for="active"><b>Active item?  </b></label>
+                            <input type="radio" id="y" value="Yes" name="active" required style="color:white; text-align:center;" checked>Yes
+                            <input type="radio" id="n" value="No" name="active" required style="text-align:center">No
+                        </div>
+                        <p>
+                            <label for="Catrgory"><b>Choose catagory:  </b></label>
+                            <select id="categoryOption" name="categories" style="text-align:center">
+                                <option>Choose Category </option>
+                                <option>Short shirts  </option>
+                                <option>Long shirts</option>
+                                <option>Dresses </option>
+                                <option>Jackets </option>
+                                <option>Skirts</option>
+                            </select>
+                        </p>
+                        <br />
+                        <input type="button" value="ADD" style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" value="ADD" onclick="uploadItem()" />
+                        <!--<button type="submit"  style="background-color:red ; font-size:x-large; text-decoration-color:black; font-family:Britannic;" onclick="uploadItem()"></button>-->
+                    </form>
+                </div>
+                <div id="div_left">
+                    <img id="new_img" style="height:350px; width:250px; left:200px;" />
+
+                </div>
             </center>
         </div>
     </div>

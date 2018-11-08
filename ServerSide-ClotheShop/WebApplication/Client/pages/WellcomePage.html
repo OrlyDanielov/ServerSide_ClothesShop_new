@@ -4,36 +4,7 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-
-                .topnav a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
-
-                .topnav a.active {
-                    background-color: red;
-                    color: white;
-                }
-    </style>
+    <link rel="stylesheet" href="Styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         function admin_uploadClothe() {
@@ -53,10 +24,10 @@
         $(document).ready(function () { // when the page open in the first time
 
             admin_uploadClothe();
-                
+
             document.getElementById("helloToUser").innerHTML = "Hello " + user_name + ".<br> Wellcome to the Orly&Viki clothe shop. The new fall collection is already in store";
         });
-</script>
+    </script>
 </head>
 <body>
     <div id="div_up" style="height:50px; background-color:white">
@@ -68,17 +39,17 @@
             <a href="WatchingClothesPage.html">Watching Clothes</a>
             <a href="HistoryOrderPage.html">History Order</a>
             <a href="UpLoadClothePage.html" id="uploadClothe_Herf">Upload Clothe</a>
-            <input type="button" value="LogOut" onclick="Logout()" />
+            <input type="button" value="LogOut" style="font-size:large; position:center; top:70px;" onclick="Logout()" />
         </div>
     </div>
     <div id="div_mid" style="position:relative;top:80px;height:425px;background-color:white; text-align:center;" align="center">
-        <center>
-            <p id="helloToUser"></p>
-            <p>
-                <img src="../images/logos/מבצע קניות תמונה.png" style="height:400px; width:450px;" />
-            </p>
-        </center>
-    </div>
+    <center>
+        <p id="helloToUser"></p>
+        <p>
+            <img src="../images/logos/מבצע קניות תמונה.png" style="height:400px; width:450px;" />
+        </p>
+    </center>
+</div>
     <div id="div_down" style="height:50px; background-color:red;position:relative; top:100px;">
     </div>
 </body>

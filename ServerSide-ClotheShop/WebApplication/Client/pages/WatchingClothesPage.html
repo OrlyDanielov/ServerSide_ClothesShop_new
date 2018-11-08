@@ -4,44 +4,15 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-        }
-
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
-
-                .topnav a:hover {
-                    background-color: #ddd;
-                    color: black;
-                }
-
-                .topnav a.active {
-                    background-color: red;
-                    color: white;
-                }
-    </style>
+    <link rel="stylesheet" href="Styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
 
-        var clothes = new Array(); //= JSON.parse(localStorage.getItem("clothes"));// 
+        var clothes = new Array(); //= JSON.parse(localStorage.getItem("clothes"));//
         $(document).ready(function () { // when the page open in the first time
 
             admin_uploadClothe();
-            
+
             $.ajax({
                 // get the information of all the clothes
                 dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
@@ -63,7 +34,7 @@
 
             init(clothes);
 
-            
+
         });
 
         function admin_uploadClothe() {
@@ -89,25 +60,25 @@
         function AddTR(cl) {
             // add new row whith the mutch details to the table
             return `<tr id='${cl.number}'  value="${cl.number}">
-                        <td>
-                             <img id="c_img" src="${cl.img_url}" style=";top:10px;background-color:white; margin:10px;height:200px;width:180px;"/>
-                        </td>
-                        <td>
-                            <span class="c_number">${cl.number}</span>
-                        </td>
-                        <td>
-                            <span class="c_category">${cl.category}</span>
-                        </td>
-                        <td>
-                            <span class="c_details">${cl.details}</span>
-                        </td>
-                        <td>
-                            <span  class="c_price">${cl.cosumer_price}</span>
-                        </td>
-                        <td>
-                            <input class="c_amount" type="number" value="0" min="0" max="${cl.amount}"/>
-                        </td>
-                    </tr>`
+                            <td>
+                                 <img id="c_img" src="${cl.img_url}" style=";top:10px;background-color:white; margin:10px;height:200px;width:180px;"/>
+                            </td>
+                            <td>
+                                <span class="c_number">${cl.number}</span>
+                            </td>
+                            <td>
+                                <span class="c_category">${cl.category}</span>
+                            </td>
+                            <td>
+                                <span class="c_details">${cl.details}</span>
+                            </td>
+                            <td>
+                                <span  class="c_price">${cl.cosumer_price}</span>
+                            </td>
+                            <td>
+                                <input class="c_amount" type="number" value="0" min="0" max="${cl.amount}"/>
+                            </td>
+                        </tr>`
         }
 
         function BuyBasket() {
@@ -139,7 +110,7 @@
                     dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
                     url: "/api/Purchase",			                 //הכתובת לשרת ולפונקציה
                     contentType: "application/json; charset=utf-8",	   //סוג הנתונים שאנחנו שולחים לשרת
-                    type: "POST",				                         //סוג הפעולה		
+                    type: "POST",				                         //סוג הפעולה
                     data: JSON.stringify(purchaseListforDB),			                 //הנתונים עצמם שאנחנו שולחים
                     success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
                         // add to the local storage the new orders
@@ -211,7 +182,6 @@
         <br />
     </div>
     <div id="div_down" style="height:50px; background-color:red;position:relative; top:90px;">
-
     </div>
 </body>
 </html>
